@@ -1,0 +1,16 @@
+-   test:
+        dependent: web管理端_订单出库
+        name: web管理端_导出出库单
+        request:
+            method: GET
+            params:
+                billNum: $global_logistics_outStorage_billNum
+                templateId: '0'
+            url: https://file.dinghuo123.com/corp/order/exporterLogistics
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8

@@ -1,0 +1,20 @@
+-   test:
+        name: 管理端_客户类型列表
+        dependent: 管理端_正常登录
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+            url: https://api.dinghuo123.com/customer/customer_type_list.json
+        extract:
+        -   customer_type_list_customerTypeId_list: $.data.[?(@.status == "0")].id
+        idempotency: True
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - {"check": "content.data", "comparator": "len_gt", "expect": 0}
+        - "eq": [content.code,200]

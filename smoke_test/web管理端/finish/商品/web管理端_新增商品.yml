@@ -1,0 +1,104 @@
+-   test:
+        dependent:
+        -  web管理端_商品单位列表
+        -  web管理端_获取商品code
+        -  web管理端_上传图片
+        -  web管理端_商品品牌列表
+        -  web管理端_商品类型列表
+        -  web管理端_验证商品名是否可用
+        name: web管理端_新增商品
+        request:
+            data:
+                albumList: ${turn_json($albumList)}
+                albumListLoading: 'false'
+                attachmentList: '[]'
+                attachmentListLoading: 'false'
+                costPrice: '100'
+                desc: '&#60;p&#62;testtest&#60;/p&#62;'
+                keywords: ${short_uuid()}
+                marketPrice: '200'
+                mulspecList: ${turn_json($mulspecList)}
+                name: $global_app_goods_checkName_productName
+                priceCustomerList: '[]'
+                priceList:
+                productBrandId: ${get_list_item($goodsBrand_list_id,0)}
+                productTypeId: ${get_list_item($goodsType_list_id,0)}
+                propertys: '{}'
+                sortNum: ${randam_int()}
+                status: '0'
+                tags: '["1"]'
+                unitList: ${turn_json($unitList)}
+                weight: ''
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            url: https://corp.dinghuo123.com/v2/goods/add
+        variables:
+        -   albumList:
+            -   imgName: $file_upload_sourceFileName
+                imgUrl: $file_upload_fileName
+                size: $file_upload_size
+                type: 0
+        -   unitList:
+            -   unitId: ${get_list_item($goodsUnit_list_id,0)}
+                unitName: ${get_list_item($goodsUnit_list_name,0)}
+                rate: 1
+                forbidden: 0
+            -   unitId: ${get_list_item($goodsUnit_list_id,1)}
+                unitName: ${get_list_item($goodsUnit_list_name,1)}
+                rate: 10
+                forbidden: 0
+            -   unitId: ${get_list_item($goodsUnit_list_id,2)}
+                unitName: ${get_list_item($goodsUnit_list_name,2)}
+                rate: 100
+                forbidden: 0
+        -   mulspecList:
+            -   code: ${get_list_item($app_goods_getProductCodes_list,0)}
+                mulspec1Name: 规格1
+                mulspec1Value: a
+                mulspec2Name: 规格2
+                mulspec2Value: '1'
+            -   code: ${get_list_item($app_goods_getProductCodes_list,1)}
+                mulspec1Name: 规格1
+                mulspec1Value: a
+                mulspec2Name: 规格2
+                mulspec2Value: '2'
+            -   code: ${get_list_item($app_goods_getProductCodes_list,2)}
+                mulspec1Name: 规格1
+                mulspec1Value: b
+                mulspec2Name: 规格2
+                mulspec2Value: '1'
+            -   code: ${get_list_item($app_goods_getProductCodes_list,3)}
+                mulspec1Name: 规格1
+                mulspec1Value: b
+                mulspec2Name: 规格2
+                mulspec2Value: '2'
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.data
+            - ''
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

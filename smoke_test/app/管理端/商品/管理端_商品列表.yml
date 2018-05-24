@@ -1,0 +1,73 @@
+- test:
+        name: 管理端_商品列表
+        dependent: 管理端_正常登录
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                currentPage: '1'
+                pageSize: '20'
+            url: https://api.dinghuo123.com/goods/goods_summary.json
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - {"check": "content.data", "comparator": "len_gt", "expect": 0}
+        - "eq": [content.code,200]
+        - {"check": "content.code", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY4", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.inventoryCount", "comparator": "check_type_and_exist", "expect": NoneType}
+        - {"check": "content.data.0.mulspec3Name", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.imgUrl_480", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.status", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.minMarketPrice", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY3", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY10", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.imgUrl", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.productBrandName", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.isPromote", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.minOrderPrice", "comparator": "check_type_and_exist", "expect": NoneType}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY9", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.code", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY7", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.unitId", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY6", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.sortNum", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.imgUrl_200", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.productName", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.priceCount", "comparator": "check_type_and_exist", "expect": NoneType}
+        - {"check": "content.data.0.productCount", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.productIds", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY5", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.imgUrl_60", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY1", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.mulspec2Name", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY8", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.mulspec2Value", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.mulspecTemplateId", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.mulspec3Value", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.unitList.0.forbidden", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.unitList.0.createTime", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.unitList.0.rate", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.unitList.0.id", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.unitList.0.unitName", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.unitList.0.version", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.unitList.0.unitId", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.unitList.0.modifyTime", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.unitList.0.dbid", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.unitList.0.productSummaryId", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0.unitList.0", "comparator": "check_type_and_exist", "expect": dict}
+        - {"check": "content.data.0.unitList", "comparator": "check_type_and_exist", "expect": list}
+        - {"check": "content.data.0.mulspec1Name", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.unitName", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.imgUrl_cut", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.PRODUCT_FPROPERTY2", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.mulspec1Value", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content.data.0.productSummaryId", "comparator": "check_type_and_exist", "expect": int}
+        - {"check": "content.data.0", "comparator": "check_type_and_exist", "expect": dict}
+        - {"check": "content.data", "comparator": "check_type_and_exist", "expect": list}
+        - {"check": "content.message", "comparator": "check_type_and_exist", "expect": str}
+        - {"check": "content", "comparator": "check_type_and_exist", "expect": dict}

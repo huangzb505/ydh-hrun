@@ -1,0 +1,289 @@
+-   test:
+        dependent: web管理端_添加收款记录
+        name: web管理端_收款记录
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                action: listDataByOrder
+                orderNum: $global_order_add_orderType_1_orderNum
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/app/payment
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.paidMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.checkedMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.orderMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.payMethod
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.payStatus
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.accountName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.signName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.remark
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.createBy
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.payMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.flowTime
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.paymentMethod.bankAccountName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.paymentMethod.bankName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.paymentMethod.bankAccount
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.paymentMethod
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.orderPaymentList.0.flowSignId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.paymentNo
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.orderNum
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.unCheckedMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.payUserName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.transactionType
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.auditStatus
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.paymentType
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.auditorBy
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.payChannel
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.flowType
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.createTime
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.payTime
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.receiptMethod
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.extra
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.companyUserName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.area
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.contactorQq
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.position
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.endSign
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.invoice
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.modelClass
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.bank
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.invoiceAddress
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.fundAccountList
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.orderPaymentList.0.customer.bankAccount
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.code
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.zipcode
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.address
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.countryId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.companyUserId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.taxNum
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.contactorPhone
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.customerRegionId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.customerPhone
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.beginSign
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.districtId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.fullAddress
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.customerStatus
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.contactorEmail
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.customerFax
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.cityId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.provinceId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.logisticsCode
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.customerTypeId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.customer.userName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.contactor
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.bankName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.customerRegionName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.invoiceMobile
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.email
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer.customerTypeName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customer
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.orderPaymentList.0.auditTime
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.balance
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0.modelClass
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.orderPaymentList.0.customerId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderPaymentList.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.orderPaymentList
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.refundUnconfirmedMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.orderMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.status
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.refundMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.unConfirmedMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.unPaidMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.sourceFrom
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

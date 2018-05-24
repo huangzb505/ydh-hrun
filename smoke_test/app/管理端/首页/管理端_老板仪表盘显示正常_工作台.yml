@@ -1,0 +1,18 @@
+- config:
+    request:
+      url: https://api.dinghuo123.com/v3/staffMenu/list
+      method: get
+
+- test:
+    name: 管理端_老板仪表盘显示正常_工作台
+    dependent: 管理端_正常登录
+    request:
+        params:
+          access_token: $global_company_access_token
+          clientType: 4
+          compat: 1
+    validate:
+        - "eq": ["status_code",200]
+        - "eq": [content.code,200]
+        - "eq": [content.message,操作成功]
+        - {"check": "content", "comparator": "check_len_by_jsonpath", "expect": ["$.data[*]",3]}

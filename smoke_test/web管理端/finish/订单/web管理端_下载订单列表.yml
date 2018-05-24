@@ -1,0 +1,13 @@
+-   test:
+        dependent: web管理端_任务进度信息获取
+        name: web管理端_下载订单列表
+        request:
+            method: GET
+            url: https://oss.dinghuo123.com/file/export/work/$global_runtime_config_file_dbid/$global_orderList_batchExport_businessType/$global_orderList_batchExport_key/$global_orderList_batchExport_name
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/vnd.ms-excel

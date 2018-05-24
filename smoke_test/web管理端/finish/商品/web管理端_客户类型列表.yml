@@ -1,0 +1,53 @@
+-   test:
+        dependent: web管理端_管理账号登录_login
+        name: web管理端_客户类型列表
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/v2/customerType/list
+        extract:
+        -   customer_type_list_customerTypeId_list: $.data[*].id
+        idempotency: True
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.code
+            - 200
+        -   eq:
+            - content.message
+            - 操作成功
+        -   check: content.data.0.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.0.isDefault
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.0.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.0.discountrate
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

@@ -1,0 +1,23 @@
+- test:
+        name: 管理端_客单价分析
+        dependent: 管理端_正常登录
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                dateSegment: '9'
+            url: https://api.dinghuo123.com/v2/indexReport/avgEfficiencyData
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        - {"check": "content.data", "comparator": "len_eq", "expect": 3}

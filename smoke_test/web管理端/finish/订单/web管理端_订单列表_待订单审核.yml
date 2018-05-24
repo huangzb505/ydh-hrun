@@ -1,0 +1,204 @@
+-   test:
+        dependent:
+        - web管理端_管理账号登录_login
+        - web管理端_新下订单
+        - web管理端_新下订单
+        name: web管理端_订单列表_待订单审核
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+                request-view: customView
+            method: GET
+            params:
+                advance: advance
+                beginDate: ${get_date_timestamp($strf),30}
+                currentPage: '1'
+                customerType: ' '
+                endDate: ${get_date_timestamp($strf)}
+                isDiscountOrder: '-1'
+                orderStatusType: '1'
+                pageSize: '30'
+                searchTimeType: createTime
+                searchType: '2'
+                status: '0'
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/v2/order/list
+        extract:
+        - order_list_status_0_orderNum: $.data.items..orderNum
+        variables:
+        -    strf: "%Y-%m-%d %H:%M:%S"
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=UTF-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.currentPage
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.totalCount
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.customerName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.status
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.productTypeCount
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.discountMoney
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.actualMoney
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.sellerName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.deliveryDate
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.customRegionId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.outStorageStatusName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.isRollback
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.orderMode
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.deliverStatus
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.customerId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.contact
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.deliverStatusName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.displayStatus
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.subtractMoney
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.weight
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.fulladdress
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.paidMoney
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.money
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.createTime
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.signStatus
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.isDiscountOrder
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.isBack
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.createName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.sourceFrom
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.freight
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.auditArea
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.mobile
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.invoiceType
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.customerCode
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.modelClass
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.nextProcess
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.dispalyStatus
+            comparator: check_type_and_exist
+            expect: str
+#        -   check: content.data.items.0.remark
+#            comparator: check_type_and_exist
+#            expect: str
+        -   check: content.data.items.0.type
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.expireTime
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.count
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.orderNum
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.version
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.logisticsCode
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.unPaidMoney
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.payStatus
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.weightUnit
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.items
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.pageSize
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

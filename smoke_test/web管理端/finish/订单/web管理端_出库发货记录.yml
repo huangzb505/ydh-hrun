@@ -1,0 +1,157 @@
+-   test:
+        dependent: web管理端_收款记录
+        name: web管理端_出库发货记录
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                orderNum: $global_order_add_orderType_1_orderNum
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/v2/logisticsBillVo/list
+        extract:
+        -  logistics_outStorage_unitId: content.data.waitForOutBill.0.unitId
+        -  logistics_outStorage_productCode: content.data.waitForOutBill.0.productCode
+        -  logistics_outStorage_warehouse_id: content.data.warehouse.id
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.outStorageBills
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.waitForOutBill.0.imgUrl_60
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.count
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.waitForOutBill.0.lastProductId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.waitForOutBill.0.rate
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.waitForOutBill.0.outStoragecount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.waitForOutBill.0.buyCount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.waitForOutBill.0.mainUnitId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.waitForOutBill.0.mainUnitName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.imgUrl_200
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.unitId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.waitForOutBill.0.productName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.description
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.mainCount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.waitForOutBill.0.weightUnit
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.unitName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.weight
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.waitForOutBill.0.imgUrl_480
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0.productCode
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.waitForOutBill.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.waitForOutBill
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.deliverBills
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.isForOutBillFlag
+            comparator: check_type_and_exist
+            expect: bool
+        -   check: content.data.warehouse.status
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.warehouse.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.warehouse.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.warehouse.isDefault
+            comparator: check_type_and_exist
+            expect: bool
+        -   check: content.data.warehouse
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.discardBills
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.inventories.0.warningCount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.inventories.0.count
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.inventories.0.upperLimitCount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.inventories.0.warehouseId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.inventories.0.productId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.inventories.0.prepareCount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.inventories.0.onWayCount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.inventories.0.version
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.inventories.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.inventories
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

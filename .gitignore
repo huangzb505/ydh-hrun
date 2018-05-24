@@ -1,0 +1,17 @@
+.idea
+ydh_httprunner/__pycache__
+reports/*.html
+__pycache__
+import_func/__pycache__
+*/__pycache__
+*.py[cod]
+*.rdb
+*.html
+test-only
+debug_output
+reports/debug_output/*.json
+reports/*.png
+reports/dependency_pic/*.png
+reports/dependency_pic/*
+reports/*
+*/.DS_Store

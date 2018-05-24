@@ -1,0 +1,26 @@
+-   test:
+        name: 管理端_查看用户
+        dependent:
+        -   管理端_正常登录
+        -   管理端_客户搜索_激活
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                currentPage: '1'
+                customerId: $customer_list_customerStatus_1_id
+                pageSize: '2147483647'
+            url: https://api.dinghuo123.com/customer/receive_list.json
+        idempotency: True
+        extract:
+        -   receive_list_addressid: content.data.0.id
+        validate:
+        -  "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - {"check": "content.data", "comparator": "count_gt", "expect": 0}
+        - {"check": "content.data.0.customerId", "comparator": "eq", "expect": $customer_list_customerStatus_1_id}

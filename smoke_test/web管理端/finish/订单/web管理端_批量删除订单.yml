@@ -1,0 +1,43 @@
+-   test:
+        dependent: web管理端_订单列表_已作废订单
+        name: web管理端_批量删除订单
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                orderNums: ${turn_json($orderNums)}
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/v2/order/delete
+        variables:
+        -    orderNums:
+              -  ${get_list_item($order_list_status__1_orderNum,0)}
+              -  ${get_list_item($order_list_status__1_orderNum,1)}
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.data
+            - ''
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

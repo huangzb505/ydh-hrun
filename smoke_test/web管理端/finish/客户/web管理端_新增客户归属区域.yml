@@ -1,0 +1,63 @@
+-   test:
+        dependent: web管理端_管理账号登录_login
+        name: web管理端_新增客户归属区域
+        request:
+            data:
+                name: ${short_uuid()}
+                parentTypeId: '0'
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            url: https://corp.dinghuo123.com/v2/customRegion/add
+        extract:
+        -  customRegion_add_id: content.data.id
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.pinyinName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.isMyDepartment
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.typeLevel
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.parentTypeId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.leafTypeFlag
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.isDefault
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

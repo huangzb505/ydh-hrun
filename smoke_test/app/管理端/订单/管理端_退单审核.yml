@@ -1,0 +1,25 @@
+-   test:
+        name: 管理端_退单审核
+        dependent:
+        -   管理端_正常登录
+        -   管理端_代下单_退单
+        request:
+            data: {}
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+            method: POST
+            params:
+                access_token: $global_company_access_token
+                orderNum: $global_order_create_orderType_2_orderNum
+                version: '1'
+            url: https://api.dinghuo123.com/order/order_audit.json
+        validate:
+        - "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - "eq": [content.data.dispalyStatus,待收货确认]
+        - {"check": "content.data", "comparator": "count_gt", "expect": 0}

@@ -1,0 +1,25 @@
+
+-   test:
+        name: 管理端_业务消息列表
+        dependent: 管理端_正常登录
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                currentPage: '1'
+                isAllMessage: 'true'
+                isNotRead: 'true'
+                pageSize: '20'
+                read: ''
+            url: https://api.dinghuo123.com/message/message_list.json
+        extract:
+        -   message_list_id: content.data.items.0.id
+        validate:
+        - "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - {"check": "content.data.items", "comparator": "len_gt", "expect": 0}

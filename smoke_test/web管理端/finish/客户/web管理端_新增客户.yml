@@ -1,0 +1,80 @@
+-   test:
+        dependent:
+        -  web管理端_管理账号登录_login
+        -  web管理端_客户类型列表
+        -  web管理端_客户归属区域
+        -  web管理端_仓库列表
+        name: web管理端_新增客户
+        request:
+            data:
+                activeCustomer: '0'
+                bank: $customer_add_userName
+                bankAccount: '123456789'
+                bankName: $customer_add_userName
+                beginSign: '2018-05-10'
+                cityId: '110100'
+                code: $customer_add_userName
+                companyUserId: '0'
+                contactor: $customer_add_userName
+                countryId: '100000'
+                customRegionId:  ${get_list_item($customRegion_list_customRegionId_id,0)}
+                customerTypeId:  ${get_list_item($customer_type_list_customerTypeId_list,0)}
+                debtTypeId: '0'
+                districtId: '110102'
+                email: test@email.com
+                endSign: '2028-05-10'
+                invoice: $customer_add_userName
+                invoiceAddress: $customer_add_userName
+                invoiceMobile: $customer_add_userName
+                isDebtInit: '0'
+                mobile: '13148898888'
+                name: $customer_add_userName
+                phone: '13148898888'
+                position: $customer_add_userName
+                provinceId: '110000'
+                qq: '13148898888'
+                taxNum: $customer_add_userName
+                warehouseId: $warehouse_default_id
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            url: https://corp.dinghuo123.com/v2/customer/add
+        variables:
+            customer_add_userName: ${short_uuid()}
+        extract:
+          - customer_add_id: content.data.id
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.customerStatus
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

@@ -1,0 +1,43 @@
+-   test:
+        dependent: web管理端_管理账号登录_login
+        name: web管理端_获取商品code
+        request:
+            data:
+                count: '4'
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            params:
+                action: getProductCodes
+            url: https://corp.dinghuo123.com/app/goods
+        extract:
+        -   app_goods_getProductCodes_list: content.data
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - ''
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.data.0
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

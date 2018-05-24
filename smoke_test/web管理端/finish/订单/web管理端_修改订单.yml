@@ -1,0 +1,52 @@
+-   test:
+        dependent: web管理端_订单详情
+        name: web管理端_修改订单
+        request:
+            data:
+                detailEntries: ${turn_json($detailEntries)}
+                orderNum: $global_order_add_orderType_1_orderNum
+                version: '1'
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            url: https://corp.dinghuo123.com/v2/order/update
+        variables:
+        -    detailEntries:
+              -   detailId: $order_get_id
+                  productId: $order_get_lastProductId
+                  mainUnitId: $order_get_mainUnitId
+                  price: 100
+                  money: 5000
+                  productRemark: ""
+                  isGift: 0
+                  mainCount: 50
+
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.version
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

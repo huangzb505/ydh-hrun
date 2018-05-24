@@ -1,0 +1,25 @@
+-   test:
+        name: 管理端_上传商品图片
+        dependent: 管理端_正常登录
+        request:
+            method: post
+            headers:
+                Content-Type: ${form_data_header()}
+            params:
+                access_token: $global_company_access_token
+            url: https://api.dinghuo123.com/goods/upload_img
+            data:
+                file: ['jpg_file.jpg', "${form_data_file($filepath)}", 'application/octet-stream']
+        variables:
+        -   filepath: "jpg_file.jpg"
+        extract:
+        -   upload_img_imgUrl: content.data.imgUrl
+        idempotency: True
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        - {"check": "content.data", "comparator": "len_eq", "expect": 3}
+        - {"check": "content.data.imgName", "comparator": "str_eq", "expect": 'jpg_file.jpg'}
+        - {"check": "content.data.size", "comparator": "eq", "expect": 150248}
+        - "eq": [content.code,200]

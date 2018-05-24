@@ -1,0 +1,19 @@
+-   test:
+        name: 管理端_通知详情
+        dependent:
+        -   管理端_正常登录
+        -   管理端_通知列表
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                id: $message_notice_list_id
+            url: https://api.dinghuo123.com/message/notice_detail.json
+        validate:
+        - "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8

@@ -1,0 +1,397 @@
+-   test:
+        name: 管理端_新增商品
+        dependent:
+        -   管理端_客户类型列表
+        -   管理端_商品单位列表
+        -   管理端_商品类型列表
+        -   管理端_获取商品code
+        -   管理端_验证商品名是否存在
+        -   管理端_上传商品图片
+        request:
+            params:
+                access_token: $global_company_access_token
+            data:
+                productData: ${turn_json($productData)}
+            method: POST
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+            url: https://api.dinghuo123.com/goods/goods_save
+        variables:
+          productData:
+                - albumList: []
+                  attachmentList: null
+                  barcode: null
+                  code: ${get_list_item($get_goods_code_code_list,0)}
+                  desc: ''
+                  description: null
+                  id: null
+                  name: $goods_check_name_productName
+                  mainImg:
+                      advanceCutSize: null
+                      id: null
+                      imgName: jpg_file.jpg
+                      imgUrl: $upload_img_imgUrl
+                      imgUrl_200: null
+                      size: 150248
+                      type: 0
+                  marketPrice: 100.0
+                  mulspec1Name: a
+                  mulspec1Value: a1
+                  mulspec2Name: b
+                  mulspec2Value: b1
+                  mulspec3Name: null
+                  mulspec3Value: null
+                  mulspec4Name: null
+                  mulspec4Value: null
+                  mulspec5Name: null
+                  mulspec5Value: null
+                  name: $goods_check_name_productName
+                  packageSpec1Name: null
+                  packageSpec1Value: null
+                  packageSpec2Name: null
+                  packageSpec2Value: null
+                  packageSpec3Name: null
+                  packageSpec3Value: null
+                  packagespecStatus: ''
+                  priceCustomerList: null
+                  priceList:
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,0)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,1)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  productBrandId: null
+                  productTypeId: ${get_list_item($goods_type_list_productTypeId_list,0)}
+                  productUnitId: null
+                  property1: null
+                  property10: null
+                  property2: null
+                  property3: null
+                  property4: null
+                  property5: null
+                  property6: null
+                  property7: null
+                  property8: null
+                  property9: null
+                  sortNum: 0
+                  status: null
+                  tags: [1]
+                  unitList:
+                  -   forbidden: '0'
+                      rate: 1.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,0)}
+                  -   forbidden: '0'
+                      rate: 10.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,1)}
+                  -   forbidden: '0'
+                      rate: 100.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,2)}
+                  weight: null
+                - albumList: []
+                  attachmentList: null
+                  barcode: null
+                  code: ${get_list_item($get_goods_code_code_list,1)}
+                  desc: ''
+                  description: null
+                  id: null
+                  name: $goods_check_name_productName
+                  mainImg:
+                      advanceCutSize: null
+                      id: null
+                      imgName: jpg_file.jpg
+                      imgUrl: $upload_img_imgUrl
+                      imgUrl_200: null
+                      size: 150248
+                      type: 0
+                  marketPrice: 100.0
+                  mulspec1Name: a
+                  mulspec1Value: a1
+                  mulspec2Name: b
+                  mulspec2Value: b2
+                  mulspec3Name: null
+                  mulspec3Value: null
+                  mulspec4Name: null
+                  mulspec4Value: null
+                  mulspec5Name: null
+                  mulspec5Value: null
+                  name: $goods_check_name_productName
+                  packageSpec1Name: null
+                  packageSpec1Value: null
+                  packageSpec2Name: null
+                  packageSpec2Value: null
+                  packageSpec3Name: null
+                  packageSpec3Value: null
+                  packagespecStatus: ''
+                  priceCustomerList: null
+                  priceList:
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,0)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,1)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+
+                  productBrandId: null
+                  productTypeId: ${get_list_item($goods_type_list_productTypeId_list,0)}
+                  productUnitId: null
+                  property1: null
+                  property10: null
+                  property2: null
+                  property3: null
+                  property4: null
+                  property5: null
+                  property6: null
+                  property7: null
+                  property8: null
+                  property9: null
+                  sortNum: 0
+                  status: null
+                  tags: [1]
+                  unitList:
+                  -   forbidden: '0'
+                      rate: 1.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,0)}
+                  -   forbidden: '0'
+                      rate: 10.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,1)}
+                  -   forbidden: '0'
+                      rate: 100.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,2)}
+                  weight: null
+                - albumList: []
+                  attachmentList: null
+                  barcode: null
+                  code: ${get_list_item($get_goods_code_code_list,2)}
+                  desc: ''
+                  description: null
+                  id: null
+                  name: $goods_check_name_productName
+                  mainImg:
+                      advanceCutSize: null
+                      id: null
+                      imgName: jpg_file.jpg
+                      imgUrl: $upload_img_imgUrl
+                      imgUrl_200: null
+                      size: 150248
+                      type: 0
+                  marketPrice: 100.0
+                  mulspec1Name: a
+                  mulspec1Value: a2
+                  mulspec2Name: b
+                  mulspec2Value: b1
+                  mulspec3Name: null
+                  mulspec3Value: null
+                  mulspec4Name: null
+                  mulspec4Value: null
+                  mulspec5Name: null
+                  mulspec5Value: null
+                  name: $goods_check_name_productName
+                  packageSpec1Name: null
+                  packageSpec1Value: null
+                  packageSpec2Name: null
+                  packageSpec2Value: null
+                  packageSpec3Name: null
+                  packageSpec3Value: null
+                  packagespecStatus: ''
+                  priceCustomerList: null
+                  priceList:
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,0)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,1)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  productBrandId: null
+                  productTypeId: ${get_list_item($goods_type_list_productTypeId_list,0)}
+                  productUnitId: null
+                  property1: null
+                  property10: null
+                  property2: null
+                  property3: null
+                  property4: null
+                  property5: null
+                  property6: null
+                  property7: null
+                  property8: null
+                  property9: null
+                  sortNum: 0
+                  status: null
+                  tags: [1]
+                  unitList:
+                  -   forbidden: '0'
+                      rate: 1.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,0)}
+                  -   forbidden: '0'
+                      rate: 10.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,1)}
+                  -   forbidden: '0'
+                      rate: 100.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,2)}
+                  weight: null
+                - albumList: []
+                  attachmentList: null
+                  barcode: null
+                  code: ${get_list_item($get_goods_code_code_list,3)}
+                  desc: ''
+                  description: null
+                  id: null
+                  name: $goods_check_name_productName
+                  mainImg:
+                      advanceCutSize: null
+                      id: null
+                      imgName: jpg_file.jpg
+                      imgUrl: $upload_img_imgUrl
+                      imgUrl_200: null
+                      size: 150248
+                      type: 0
+                  marketPrice: 100.0
+                  mulspec1Name: a
+                  mulspec1Value: a2
+                  mulspec2Name: b
+                  mulspec2Value: b2
+                  mulspec3Name: null
+                  mulspec3Value: null
+                  mulspec4Name: null
+                  mulspec4Value: null
+                  mulspec5Name: null
+                  mulspec5Value: null
+                  name: $goods_check_name_productName
+                  packageSpec1Name: null
+                  packageSpec1Value: null
+                  packageSpec2Name: null
+                  packageSpec2Value: null
+                  packageSpec3Name: null
+                  packageSpec3Value: null
+                  packagespecStatus: ''
+                  priceCustomerList: null
+                  priceList:
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,0)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,1)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  productBrandId: null
+                  productTypeId: ${get_list_item($goods_type_list_productTypeId_list,0)}
+                  productUnitId: null
+                  property1: null
+                  property10: null
+                  property2: null
+                  property3: null
+                  property4: null
+                  property5: null
+                  property6: null
+                  property7: null
+                  property8: null
+                  property9: null
+                  sortNum: 0
+                  status: null
+                  tags: [1]
+                  unitList:
+                  -   forbidden: '0'
+                      rate: 1.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,0)}
+                  -   forbidden: '0'
+                      rate: 10.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,1)}
+                  -   forbidden: '0'
+                      rate: 100.0
+                      unitId: ${get_list_item($goods_unit_list_productUnitId_list,2)}
+                  weight: null
+        extract:
+        -   goods_save_imgUrl_200: content.data.0.imgUrl_200
+        -   goods_save_id: $.data.[*].id
+        -   goods_save_productSummaryId: content.data.0.productSummaryId
+        idempotency: True
+        validate:
+        - "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - "eq": [content.code,200]
+        - {"check": "content.data", "comparator": "len_eq", "expect": 4}

@@ -1,0 +1,21 @@
+- test:
+    name: 管理端_仓库列表
+    dependent: 管理端_正常登录
+
+    request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+            url: https://api.dinghuo123.com/inventory/warehouse
+    extract:
+        - warehouse_default_id: $..[?(@.default == True)].id
+        - warehouse_non_default_id: $..[?(@.default == False)].id
+        - warehouse_default_number: $..[?(@.default == True)].number
+        - warehouse_non_default_number: $..[?(@.default == False)].number
+    idempotency: True
+
+    validate:
+        - "eq": ["status_code",200]
+        - "eq": [content.code,200]
+        - "eq": [content.message,操作成功]
+        - {"check": "content.data", "comparator": "count_gt", "expect": 0}

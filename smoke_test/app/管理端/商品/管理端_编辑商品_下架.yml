@@ -1,0 +1,128 @@
+-   test:
+        name: 管理端_编辑商品_下架
+        dependent:
+        -   管理端_商品品牌列表
+        -   管理端_新增商品
+        -   管理端_客户类型列表
+        -   管理端_商品单位列表
+        -   管理端_商品类型列表
+        -   管理端_获取商品code
+        -   管理端_验证商品名是否存在
+        -   管理端_上传商品图片
+
+        request:
+            params:
+                access_token: $global_company_access_token
+                isModifySummayOther:  0
+            data:
+                productData: ${turn_json($productData)}
+            method: POST
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+
+            url: https://api.dinghuo123.com/goods/goods_save
+        variables:
+          productData:
+            - albumList: null
+              attachmentList: []
+              barcode: ''
+              code: ${get_list_item($get_goods_code_code_list,0)}
+              desc: ''
+              description: ''
+              id: ${get_list_item($goods_save_id,0)}
+              keywords: testtesttest
+              mainImg:
+                  advanceCutSize: null
+                  id: null
+                  imgName: jpg_file.jpg
+                  imgUrl: $upload_img_imgUrl
+                  imgUrl_200: null
+                  size: 150248
+                  type: 0
+              marketPrice: 100.0
+              mulspec1Name: a
+              mulspec1Value: a1
+              mulspec2Name: b
+              mulspec2Value: b1
+              mulspec3Name: null
+              mulspec3Value: null
+              mulspec4Name: null
+              mulspec4Value: null
+              mulspec5Name: null
+              mulspec5Value: null
+              name: $goods_check_name_productName
+              packageSpec1Name: ''
+              packageSpec1Value: ''
+              packageSpec2Name: ''
+              packageSpec2Value: ''
+              packageSpec3Name: ''
+              packageSpec3Value: ''
+              packagespecStatus: '0'
+              priceCustomerList: []
+              priceList:
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,0)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+                  -   customerType: null
+                      customerTypeId: ${get_list_item($customer_type_list_customerTypeId_list,1)}
+                      dbid: null
+                      id: null
+                      isForbidden: 0
+                      marketPrice: 100.0
+                      maxQuantity: 0.0
+                      minQuantity: 0.0
+                      orderPrice: 100.0
+                      productId: null
+                      productSummaryId: null
+                      remark: null
+                      status: null
+              productBrandId: ${get_list_item($brand_list_productBrandId_list,0)}
+              productTypeId: ${get_list_item($goods_type_list_productTypeId_list,0)}
+              productUnitId: ${get_list_item($goods_unit_list_productUnitId_list,0)}
+              property1: ''
+              property10: ''
+              property2: ''
+              property3: ''
+              property4: ''
+              property5: ''
+              property6: ''
+              property7: ''
+              property8: ''
+              property9: null
+              sortNum: 0
+              status: '1'
+              tags: [1]
+              unitList:
+              -   forbidden: '0'
+                  rate: 1.0
+                  unitId: ${get_list_item($goods_unit_list_productUnitId_list,0)}
+              -   forbidden: '0'
+                  rate: 10.0
+                  unitId: ${get_list_item($goods_unit_list_productUnitId_list,1)}
+              -   forbidden: '0'
+                  rate: 100.0
+                  unitId: ${get_list_item($goods_unit_list_productUnitId_list,2)}
+              weight: 0.0
+
+        validate:
+        - "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - "eq": [content.code,200]
+        - {"check": "content.data", "comparator": "len_eq", "expect": 1}
+        - {"check": "content.data.0.status", "comparator": "str_eq", "expect": 1}
+        - {"check": "content.data.0.productBrandId", "comparator": "gt", "expect": 0}

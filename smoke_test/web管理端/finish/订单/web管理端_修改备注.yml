@@ -1,0 +1,50 @@
+-   test:
+        dependent: web管理端_修改订单
+        name: web管理端_修改备注
+        request:
+            data:
+                orderNum: $global_order_add_orderType_1_orderNum
+                orderType: '1'
+                remark: ${short_uuid()}
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            url: https://corp.dinghuo123.com/v2/orderRemark/add
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.createTime
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.companyName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.content
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.operator
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

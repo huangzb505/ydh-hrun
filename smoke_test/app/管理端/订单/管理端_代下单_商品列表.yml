@@ -1,0 +1,33 @@
+-   test:
+        name: 管理端_代下单_商品列表
+        dependent:
+        -   管理端_正常登录
+        -   管理端_客户搜索_激活
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                currentPage: '1'
+                customerId: $customer_list_customerStatus_1_id
+                isloadSunProduct: 'true'
+                pageSize: '20'
+            url: https://api.dinghuo123.com/v2/goods/goods_summary
+        extract:
+          - goods_summary_customerId_productIds: $.data.items[*].productIds
+          - goods_summary_customerId_unitId: $.data.items[*].unitId
+        idempotency: True
+        validate:
+        -  "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        - {"check": "content.data.items", "comparator": "count_gt", "expect": 0}

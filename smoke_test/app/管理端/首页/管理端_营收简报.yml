@@ -1,0 +1,17 @@
+- config:
+    request:
+      url: https://api.dinghuo123.com/v2/indexReport/orderStatistics
+      method: get
+
+- test:
+    name: 管理端_营收简报
+    dependent: 管理端_正常登录
+    request:
+        params:
+          access_token: $global_company_access_token
+          dateSegment: 0
+    validate:
+        - "eq": ["status_code",200]
+        - "eq": [content.code,200]
+        - "eq": [content.message,操作成功]
+        - {"check": "content.data", "comparator": "len_eq", "expect": 3}

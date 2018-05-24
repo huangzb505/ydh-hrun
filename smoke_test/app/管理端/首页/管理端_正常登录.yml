@@ -1,0 +1,21 @@
+- test:
+    name: 管理端_正常登录
+    request:
+        url: http://api.dinghuo123.com/v2/oauth2/token
+        method: GET
+        params:
+            userName: 'chenym8'
+            password: '123456'
+            grant_type: 'client_credentials'
+            client_id: '2124571'
+            client_secret: '3sfX3HJX484gXY'
+            scope: 'basic'
+    idempotency: True
+    session: True
+    extract:
+        - global_company_access_token: content.data.access_token
+    validate:
+        - "eq": [status_code,200]
+        - "eq": [content.code,200]
+        - "eq": [content.message,操作成功]
+        - "ne": [content.data.access_token,'']

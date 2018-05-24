@@ -1,0 +1,110 @@
+-   test:
+        dependent: web管理端_管理账号登录_login
+        name: web管理端_客户列表
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                customerStatus: '0'
+                jsonView: forOrderSelect
+                searchValue: ''
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/v2/customer/list
+        extract:
+        - customer_list_content: content.data.items.0
+        idempotency: True
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.code
+            - 200
+        -   eq:
+            - content.message
+            - 操作成功
+        -   check: content.data.pageSize
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.invoiceAddress
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.bankName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.invoice
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.customerTypeId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.mobile
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.contactor
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.invoiceMobile
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.invoiceType
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.bankAccount
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.bank
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.taxNum
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.companyUserName
+            comparator: check_type_and_exist
+            expect: NoneType
+        -   check: content.data.items.0.code
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.invoiceContent
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.area
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.customerTypeName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.items
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.totalCount
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.currentPage
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

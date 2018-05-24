@@ -1,0 +1,60 @@
+-   test:
+        dependent: web管理端_管理账号登录_login
+        name: web管理端_上传图片
+        request:
+            headers:
+                Content-Type: ${form_data_header()}
+                X-Requested-With: XMLHttpRequest, XMLHttpRequest
+                authorization: authorization-text
+            data:
+                file: ['jpg_file.jpg', "${form_data_file($filepath)}", 'image/jpeg']
+            method: POST
+            params:
+                type: '0'
+            url: https://corp.dinghuo123.com/v2/file/upload
+        extract:
+        -   file_upload_fileName: content.data.fileName
+        -   file_upload_size: content.data.size
+        -   file_upload_sourceFileName: content.data.sourceFileName
+        variables:
+        -   filepath: "jpg_file.jpg"
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.data.fileName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.contentType
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.size
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.sourceFileName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.path
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

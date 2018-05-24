@@ -1,0 +1,28 @@
+-   test:
+        name: 管理端_财务审核
+        dependent:
+        -   管理端_订单审核
+        request:
+            data: {}
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+            method: POST
+            params:
+                access_token: $global_company_access_token
+                orderNum: $global_order_create_orderType_1_orderNum
+                version: '2'
+            url: https://api.dinghuo123.com/order/order_audit.json
+        extract:
+        -   order_audit_productCode:  content.data.details.0.productCode
+        -   order_audit_mainUnitId:  content.data.details.0.mainUnitId
+        -   order_audit_count:  content.data.details.0.count
+        validate:
+        - "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - "eq": [content.data.dispalyStatus,待出库审核]
+        - {"check": "content.data", "comparator": "count_gt", "expect": 0}

@@ -1,0 +1,15 @@
+-   test:
+        dependent: web管理端_库存盘点导出进度
+        name: web管理端_下载库存盘点
+        request:
+            method: GET
+            params:
+                exportId: $global_inventoryImport_exportInventory_exportId
+            url: https://file.dinghuo123.com/export/download
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8

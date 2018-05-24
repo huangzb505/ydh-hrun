@@ -1,0 +1,65 @@
+- config:
+        output:
+        -  customer_create_userName
+-   test:
+        name: 管理端_新增客户
+        dependent:
+        -   管理端_正常登录
+        -   管理端_客户类型列表
+        -   管理端_归属部门
+        -   管理端_仓库列表
+        request:
+            data:
+                activeCustomer: '1'
+                address: $customer_create_userName
+                bank: '12345'
+                bankAccount: '12345'
+                bankName: '12345'
+                beginSign: '2018-05-10'
+                cityId: '110100'
+                code: $customer_create_userName
+                companyUserId: ''
+                contactor: test
+                countryId: '100000'
+                customRegionId: ${get_list_item($customRegion_list_customRegionId_id,0)}
+                customertypeId: ${get_list_item($customer_type_list_customerTypeId_list,0)}
+                districtId: '110102'
+                email: 12345678@123456.com
+                endSign: '2019-05-10'
+                extra: '12345678901'
+                fax: '12345678901'
+                id: '0'
+                invoice: '12345'
+                invoiceAddress: '12345'
+                invoiceMobile: '13148891188'
+                logisticsCode: '1234567890'
+                mobile: '12345678901'
+                name: $customer_create_userName
+                phone: '12345678901'
+                position: $customer_create_userName
+                provinceId: '110000'
+                qq: '123456789'
+                sendEmail: 'false'
+                taxNum: '12345'
+                warehouseId: ${get_list_item($warehouse_default_id,0)}
+                zipcode: $customer_create_userName
+                userName:   $customer_create_userName
+                password:   123456
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=UTF-8
+            method: POST
+            params:
+                access_token: $global_company_access_token
+            url: https://api.dinghuo123.com/customer/customer_create.json
+        variables:
+            customer_create_userName: ${short_uuid()}
+        extract:
+          - customer_create_id: content.data.id
+        validate:
+        -  "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8

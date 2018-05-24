@@ -1,0 +1,76 @@
+-   test:
+        dependent:
+        - web管理端_管理账号登录_login
+        - web管理端_新增商品类别
+        - web管理端_新增商品类别
+        name: web管理端_修改商品类别
+        request:
+            data:
+                id: ${get_list_item($goodsType_add_id,0)}
+                name: ${short_uuid()}
+                parentTypeId: ${get_list_item($goodsType_add_id,1)}
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            url: https://corp.dinghuo123.com/v2/goodsType/update
+        extract:
+        - goodsType_update_id: content.data.id
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.code
+            - 200
+        -   eq:
+            - content.message
+            - 保存成功！
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.leafTypeFlag
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.typeLevel
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.imgUrl_200
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.subTypeList
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.subTypeTotalNum
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.mainImgUrl
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.parentTypeId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.isDefault
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.showPageType
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

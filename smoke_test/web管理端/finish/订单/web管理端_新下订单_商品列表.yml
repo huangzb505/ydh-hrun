@@ -1,0 +1,164 @@
+-   test:
+        dependent:
+        -   web管理端_管理账号登录_login
+        -   web管理端_客户列表
+        name: web管理端_新下订单_商品列表
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                customerId: ${get_content_item($customer_list_content,id)}
+                jsonView: forOrderSelect
+                keyword: ''
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/v2/goods/list
+        idempotency: True
+        extract:
+          - goods_summary_customerId_productIds: $.data.items[*].id
+          - goods_summary_customerId_unitId: $.data.items[*].unitList.[0].unitId
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=UTF-8
+        -   eq:
+            - content.code
+            - 200
+        -   eq:
+            - content.message
+            - 操作成功
+        -   check: content.data.pageSize
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.weight
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.id
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.unitList.0.forbidden
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.unitList.0.rate
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.unitList.0.unitId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.unitList.0.unitName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.unitList.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.items.0.unitList
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.items.0.packageSpec1Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.packageSpecStatus
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.inventoryCount
+            comparator: check_type_and_exist
+            expect: NoneType
+        -   check: content.data.items.0.marketPrice
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.mulspec4Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.promotionStrategy
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.items.0.mulspec5Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.code
+            comparator: check_type_and_exist
+            expect: str
+#        -   check: content.data.items.0.warningCount
+#            comparator: check_type_and_exist
+#            expect: float
+        -   check: content.data.items.0.packageSpec3Name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.packageSpec3Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.productTypeName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.mulspec2Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.productUnitName
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.packageSpec2Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.mulspec1Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.packageSpec2Name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.mulspec3Value
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.spec
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.prepareCount
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0.minQuantity
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.packageSpec1Name
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.maxQuantity
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.imgUrl_60
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.data.items.0.productTypeId
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.items.0.orderPrice
+            comparator: check_type_and_exist
+            expect: float
+        -   check: content.data.items.0
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.data.items
+            comparator: check_type_and_exist
+            expect: list
+        -   check: content.data.totalCount
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data.currentPage
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

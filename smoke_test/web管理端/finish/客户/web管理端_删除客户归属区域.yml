@@ -1,0 +1,39 @@
+-   test:
+        dependent: web管理端_修改客户归属区域
+        name: web管理端_删除客户归属区域
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                id: $customRegion_update_id
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/v2/customRegion/delete
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   eq:
+            - content.data
+            - ''
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

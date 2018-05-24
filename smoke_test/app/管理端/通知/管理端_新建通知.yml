@@ -1,0 +1,23 @@
+-   test:
+        name: 管理端_新建通知
+        dependent:
+        -   管理端_正常登录
+        -   管理端_通知类型列表
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                attachmentList: '[]'
+                content: babababa
+                notificationTypeId: notice_type_list_id
+                sendType: '0'
+                title: ${short_uuid()}
+            url: https://api.dinghuo123.com/message/notice_create
+        validate:
+        - "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8

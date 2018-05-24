@@ -1,0 +1,15 @@
+- config:
+    request:
+      url: https://api.dinghuo123.com/common/countV2
+      method: get
+
+- test:
+    name: 管理端_未读消息红圈标识
+    dependent: 管理端_正常登录
+    request:
+        params:
+          access_token: $global_company_access_token
+    validate:
+        - "eq": ["status_code",200]
+        - "eq": [content.code,200]
+        - {"check": "content.data.count", "comparator": "greater_than_or_equals", "expect": 0}

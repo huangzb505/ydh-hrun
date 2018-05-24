@@ -1,0 +1,22 @@
+-   test:
+        dependent:
+        - web管理端_管理账号登录_login
+        - web管理端_系统配置
+        - web管理端_退单收货记录
+        name: web管理端_导出退货单
+        request:
+            method: GET
+            params:
+                file_token: $global_runtime_config_file_token
+                order: asc
+                orderBy: '1'
+                orderNum: $global_order_add_orderType_2_orderNum
+                templateId: '0'
+            url: https://file.dinghuo123.com/corp/returnOrderManager/exporter
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8

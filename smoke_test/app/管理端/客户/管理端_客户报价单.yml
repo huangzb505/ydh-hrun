@@ -1,0 +1,28 @@
+
+-   test:
+        name: 管理端_客户报价单
+        dependent:
+        -   管理端_正常登录
+        -   管理端_客户搜索_激活
+        request:
+            method: GET
+            params:
+                access_token: $global_company_access_token
+                currentPage: '1'
+                customerId: $customer_list_customerStatus_1_id
+                keywords: ''
+                orderby: '0'
+                pageSize: '20'
+                productBrandIds: ''
+                productTypeId: ''
+                tagIds: ''
+            url: https://api.dinghuo123.com/goods/priceSheet
+        validate:
+        -  "eq": [content.code,200]
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - text/html;charset=UTF-8
+        - {"check": "content.data.items", "comparator": "count_gt", "expect": 0}

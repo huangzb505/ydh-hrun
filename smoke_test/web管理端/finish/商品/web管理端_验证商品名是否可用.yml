@@ -1,0 +1,46 @@
+- config:
+        output:
+        -  global_app_goods_checkName_productName
+
+-   test:
+        dependent: web管理端_管理账号登录_login
+        name: web管理端_验证商品名是否可用
+        request:
+            headers:
+                X-Requested-With: XMLHttpRequest
+            method: GET
+            params:
+                action: checkName
+                productName: $global_app_goods_checkName_productName
+                t: ${get_time()}
+            url: https://corp.dinghuo123.com/app/goods
+        variables:
+            global_app_goods_checkName_productName: ${short_uuid()}
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=UTF-8
+        -   eq:
+            - content.message
+            - 操作成功
+        -   eq:
+            - content.code
+            - 200
+        -   check: content.data.isExist
+            comparator: check_type_and_exist
+            expect: bool
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: dict
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict

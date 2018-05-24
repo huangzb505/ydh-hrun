@@ -1,0 +1,39 @@
+-   test:
+        dependent: web管理端_修改客户
+        name: web管理端_删除客户
+        request:
+            data:
+                id: $customer_update_id
+            headers:
+                Content-Type: application/x-www-form-urlencoded;charset=utf-8
+                X-Requested-With: XMLHttpRequest
+            method: POST
+            url: https://corp.dinghuo123.com/v2/customer/delete
+        validate:
+        -   eq:
+            - status_code
+            - 200
+        -   eq:
+            - headers.Content-Type
+            - application/json;charset=utf-8
+        -   eq:
+            - content.code
+            - 200
+        -   eq:
+            - content.data
+            - ''
+        -   eq:
+            - content.message
+            - 操作成功
+        -   check: content.code
+            comparator: check_type_and_exist
+            expect: int
+        -   check: content.data
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content.message
+            comparator: check_type_and_exist
+            expect: str
+        -   check: content
+            comparator: check_type_and_exist
+            expect: dict
